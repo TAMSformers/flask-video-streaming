@@ -4,6 +4,8 @@ from flask import Flask, render_template, Response
 # emulated camera
 from camera import Camera
 
+import time
+
 # Raspberry Pi camera module (requires picamera package)
 # from camera_pi import Camera
 
@@ -19,6 +21,7 @@ def index():
 def gen(camera):
     """Video streaming generator function."""
     while True:
+        time.sleep(0.04)
         frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
